@@ -30,4 +30,34 @@ async function buscarPokemonPorTipo(tipo) {
   }
 }
 
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
 
+function exibirMenu() {
+  console.log(`
+  1 - Buscar por nome ou ID
+  2 - Buscar por tipo
+  0 - Sair
+`);
+
+  rl.question("Escolha uma opção: ", async (opcao) => {
+    if (opcao === '1') {
+      rl.question("Digite o nome ou ID do Pokémon: ", async (input) => {
+        await buscarPokemon(input.toLowerCase());
+        exibirMenu();
+      });
+    } else if (opcao === '2') {
+      rl.question("Digite o tipo do Pokémon : ", async (input) => {
+        await buscarPokemonPorTipo(input.toLowerCase());
+        exibirMenu();
+      });
+    } else if(opcao==='0'){
+        console.log('parou aqui');
+    }
+    
+  });
+}
+
+exibirMenu();
